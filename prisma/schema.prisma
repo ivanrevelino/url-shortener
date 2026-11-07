@@ -7,7 +7,7 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(uuid()) @db.Uuid
+  id           Int      @id @default(autoincrement())
   email        String   @unique @db.VarChar(254)
   passwordHash String
   createdAt    DateTime @default(now())
@@ -16,11 +16,11 @@ model User {
 }
 
 model Url {
-  id          String     @id @default(uuid()) @db.Uuid
+  id          Int        @id @default(autoincrement())
   originalUrl String     @db.Text
   shortCode   String     @unique @db.VarChar(8)
   clickCount  Int        @default(0)
-  ownerId     String?    @db.Uuid
+  ownerId     Int?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   owner       User?      @relation(fields: [ownerId], references: [id])
@@ -30,8 +30,8 @@ model Url {
 }
 
 model UrlClick {
-  id        String   @id @default(uuid()) @db.Uuid
-  urlId     String   @db.Uuid
+  id        Int      @id @default(autoincrement())
+  urlId     Int
   clickedAt DateTime @default(now())
   country   String?  @db.VarChar(2)
   device    String?

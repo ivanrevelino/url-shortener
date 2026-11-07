@@ -1,5 +1,6 @@
 import express from "express";
 import { errorHandler } from "./middleware/error-handler.middleware.js";
+import redirectRoutes from "./routes/redirect.routes.js";
 import urlRoutes from "./routes/url.routes.js";
 
 const app = express();
@@ -12,6 +13,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/urls", urlRoutes);
+app.use("/", redirectRoutes);
 app.use(errorHandler);
 
 app.listen(port, () => {
