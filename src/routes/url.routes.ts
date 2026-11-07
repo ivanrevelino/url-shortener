@@ -4,6 +4,6 @@ import { authenticate } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.post("/urls", authenticate, createShortUrl);
+router.post("/", authenticate, createShortUrl);
 
 export default router;
