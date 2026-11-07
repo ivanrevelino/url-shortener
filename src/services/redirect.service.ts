@@ -1,9 +1,25 @@
-import { findOriginalUrl } from "../repositories/redirect.repository.js";
+import { recordClickAndGetOriginalUrl } from "../repositories/redirect.repository.js";
 
-export function getOriginalUrl(shortCode: string): Promise<string | null> {
+function getReferrerDomain(referrer: string | undefined): string | null {
+  if (!referrer) return null;
+
+  try {
+    return new URL(referrer).hostname || null;
+  } catch {
+    return null;
+  }
+}
+
+export function getOriginalUrl(
+  shortCode: string,
+  referrer: string | undefined,
+): Promise<string | null> {
   if (!/^[a-z0-9]{8}$/i.test(shortCode)) {
     return Promise.resolve(null);
   }
 
-  return findOriginalUrl(shortCode.toLowerCase());
+  return recordClickAndGetOriginalUrl(
+    shortCode.toLowerCase(),
+    getReferrerDomain(referrer),
+  );
 }

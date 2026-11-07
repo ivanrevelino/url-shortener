@@ -13,6 +13,8 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   urls         Url[]
+
+  @@map("user_tb")
 }
 
 model Url {
@@ -27,6 +29,7 @@ model Url {
   clicks      UrlClick[]
 
   @@index([ownerId])
+  @@map("url_tb")
 }
 
 model UrlClick {
@@ -40,4 +43,5 @@ model UrlClick {
   url       Url      @relation(fields: [urlId], references: [id], onDelete: Cascade)
 
   @@index([urlId, clickedAt])
+  @@map("url_click_tb")
 }
