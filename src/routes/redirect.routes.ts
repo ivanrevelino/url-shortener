@@ -3,6 +3,6 @@ import { redirectToOriginalUrl } from "../controllers/redirect.controller.js";
 
 const router = Router();
 
-router.get("/:shortCode", redirectToOriginalUrl);
+router.get("/urls/:shortCode", redirectToOriginalUrl);
 
 export default router;

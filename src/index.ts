@@ -1,5 +1,6 @@
 import express from "express";
 import { errorHandler } from "./middleware/error-handler.middleware.js";
+import authRoutes from "./routes/auth.routes.js";
 import redirectRoutes from "./routes/redirect.routes.js";
 import urlRoutes from "./routes/url.routes.js";
 
@@ -12,6 +13,7 @@ app.get("/", (request, response) => {
   response.send("URL Shortener API");
 });
 
+app.use("/auth", authRoutes);
 app.use("/urls", urlRoutes);
 app.use("/", redirectRoutes);
 app.use(errorHandler);

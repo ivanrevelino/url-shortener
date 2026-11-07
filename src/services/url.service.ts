@@ -7,7 +7,7 @@ export class InvalidUrlError extends Error {
   }
 }
 
-export async function shortenUrl(value: unknown) {
+export async function shortenUrl(value: unknown, ownerId: number) {
   if (typeof value !== "string" || value.trim().length === 0) {
     throw new InvalidUrlError();
   }
@@ -23,5 +23,5 @@ export async function shortenUrl(value: unknown) {
     throw new InvalidUrlError();
   }
 
-  return createUrl(url.toString());
+  return createUrl(url.toString(), ownerId);
 }

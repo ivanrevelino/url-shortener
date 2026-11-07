@@ -13,13 +13,14 @@ function generateShortCode(): string {
   ).join("");
 }
 
-export async function createUrl(originalUrl: string) {
+export async function createUrl(originalUrl: string, ownerId: number) {
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
       return await prisma.url.create({
         data: {
           originalUrl,
           shortCode: generateShortCode(),
+          ownerId,
         },
       });
     } catch (error) {
