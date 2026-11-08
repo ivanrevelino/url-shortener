@@ -1,27 +1,9 @@
 import { createUrl } from "../repositories/url.repository.js";
+import type { z } from "zod";
+import type { createUrlShema } from "../schemas/url.schema.js";
 
-export class InvalidUrlError extends Error {
-  constructor() {
-    super("A valid HTTP or HTTPS URL is required");
-    this.name = "InvalidUrlError";
-  }
-}
+type CreateUrlInput = z.infer<typeof createUrlShema>;
 
-export async function shortenUrl(value: unknown, ownerId: number) {
-  if (typeof value !== "string" || value.trim().length === 0) {
-    throw new InvalidUrlError();
-  }
-
-  let url: URL;
-  try {
-    url = new URL(value.trim());
-  } catch {
-    throw new InvalidUrlError();
-  }
-
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
-    throw new InvalidUrlError();
-  }
-
-  return createUrl(url.toString(), ownerId);
+export async function shortenUrl(value: CreateUrlInput["originalUrl"], ownerId: number) {
+  return createUrl(value, ownerId);
 }

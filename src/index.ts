@@ -1,5 +1,5 @@
 import express from "express";
-import { errorHandler } from "./middleware/error-handler.middleware.js";
+import { errorHandler } from "./middlewares/error-handler.middleware.js";
 import authRoutes from "./routes/auth.routes.js";
 import redirectRoutes from "./routes/redirect.routes.js";
 import urlRoutes from "./routes/url.routes.js";

@@ -8,5 +8,7 @@ export const register: RequestHandler = async (request, response) => {
 
 export const login: RequestHandler = async (request, response) => {
   const result = await loginUser(request.body);
-  response.status(200).json(result);
+  response.status(200).json({
+    token : result
+  });
 };
